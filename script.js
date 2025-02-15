@@ -4,6 +4,9 @@ const DOMContainer = document.querySelector(".container");
 const gridCell = document.createElement("div");
 const DOMColorNodeList = document.querySelectorAll(".color")
 
+const DOMEraser = document.querySelector(".eraser");
+const DOMClearAll = document.querySelector(".clear")
+
 
 
 // Global Variables
@@ -59,7 +62,7 @@ document.addEventListener("mouseup", function() {
 
 
 
-// Main
+// Main: Select & Apply Color
 
 const gridCellNodeList = document.querySelectorAll(".cell");
 
@@ -71,3 +74,16 @@ gridCellNodeList.forEach(cell => cell.addEventListener(
   }
 ));
 
+// Main: Eraser Mode
+
+DOMEraser.addEventListener("click", function() {
+  color = "";
+});
+
+// Main: Clear All
+
+DOMClearAll.addEventListener("dblclick", function() {
+  gridCellNodeList.forEach(cell => {
+    cell.style.backgroundColor = ""
+  })
+});

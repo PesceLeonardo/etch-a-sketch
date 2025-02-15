@@ -72,6 +72,8 @@ body {
   writing-mode: vertical-rl;
   text-orientation: upright;
 
+  user-select: none;
+
   font-family: pixel, monospace;
   font-size: 32px;
 
