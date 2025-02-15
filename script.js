@@ -48,8 +48,9 @@ DOMColorNodeList.forEach(selector => selector.addEventListener(
 
 // Check For Mouse
 
-DOMContainer.addEventListener("mousedown", function() {
+DOMContainer.addEventListener("mousedown", function(event) {
   isMousePressed = true;
+  event.target.style.backgroundColor = color;
 });
 
 document.addEventListener("mouseup", function() {
@@ -63,7 +64,7 @@ document.addEventListener("mouseup", function() {
 const gridCellNodeList = document.querySelectorAll(".cell");
 
 gridCellNodeList.forEach(cell => cell.addEventListener(
-  "mouseenter", function(event) {
+  "mouseover", function(event) {
     if (isMousePressed) {
       event.target.style.backgroundColor = color;
     }
