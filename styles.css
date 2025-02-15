@@ -29,32 +29,66 @@ body {
   align-items: center;
 }
 
-/* COLOR SELECTORS */
+/* SELECTORS */
+
+.options {
+  display: flex;
+}
 
 .selector {
   padding: 10px;
-
+  
   width: 750px;
-
+  
   background-color: black;
   border: 10px groove black;
-
+  
   display: flex;
   flex-wrap: wrap;
-
+  
   gap: 10px;
 }
 
-.color {
-  width: 80px;
-  height: 80px;
+.side {
+  width: 120px;
 }
+
+/* BUTTONS */
 
 .button {
   border: 2px groove grey;
 
   flex: 0 0 auto;
 }
+
+.side .button {
+  width: 80px;
+  height: 380px;
+}
+
+/* CLEAR & ERASER */
+
+.clear, .eraser {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+
+  font-family: pixel, monospace;
+  font-size: 32px;
+
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* COLOR SELECTORS */
+
+.color {
+  width: 80px;
+  height: 80px;
+}
+
 
 .button:hover {
   border: 2px groove white;
