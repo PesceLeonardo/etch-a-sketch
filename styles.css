@@ -66,12 +66,12 @@ body {
   height: 380px;
 }
 
-/* CLEAR & ERASER */
-
-.clear, .eraser {
+.side .text {
   writing-mode: vertical-rl;
   text-orientation: upright;
+}
 
+.text {
   user-select: none;
 
   font-family: pixel, monospace;
@@ -106,8 +106,6 @@ body {
 .custom {
   width: 350px;
   height: 80px;
-
-  background-color: red;
 }
 
 /* COLORS */

@@ -5,7 +5,10 @@ const gridCell = document.createElement("div");
 const DOMColorNodeList = document.querySelectorAll(".color")
 
 const DOMEraser = document.querySelector(".eraser");
-const DOMClearAll = document.querySelector(".clear")
+const DOMClearAll = document.querySelector(".clear");
+
+const DOMCustomButton = document.querySelector(".custom");
+const DOMCustomInput = document.querySelector(".custom input");
 
 
 
@@ -36,7 +39,7 @@ for (let i = 0; i < 16 ** 2; i++) {
 
 
 
-// Select Color
+// Select Color: Default
 
 function selectColor(event) {
   const selectedColor = getComputedStyle(event.target).backgroundColor;
@@ -46,6 +49,19 @@ function selectColor(event) {
 DOMColorNodeList.forEach(selector => selector.addEventListener(
   "click", selectColor
 ));
+
+
+
+// Select Color: Custom
+
+DOMCustomInput.addEventListener("input", function() {
+  color = DOMCustomInput.value;
+});
+
+DOMCustomButton.addEventListener("click", function() {
+  color = DOMCustomInput.value;
+});
+
 
 
 
