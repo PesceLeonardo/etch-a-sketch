@@ -12,6 +12,8 @@ const DOMCustomInput = document.querySelector(".custom input");
 
 const DOMOpacity = document.querySelector(".opacity");
 
+const DOMRainbow = document.querySelector(".rainbow");
+
 
 
 // Global Variables
@@ -42,6 +44,8 @@ for (let i = 0; i < 16 ** 2; i++) {
 
 
 
+// Select Color
+
 // Select Color: Default
 
 function selectColor(event) {
@@ -53,8 +57,6 @@ DOMColorNodeList.forEach(selector => selector.addEventListener(
   "click", selectColor
 ));
 
-
-
 // Select Color: Custom
 
 DOMCustomInput.addEventListener("input", function() {
@@ -65,12 +67,22 @@ DOMCustomButton.addEventListener("click", function() {
   color = DOMCustomInput.value;
 });
 
-
-
-// Select Color: Change Opacity
+// Select Color: Opacity Mode
 
 DOMOpacity.addEventListener("click", function() {
   color = "change-mode-opacity";
+});
+
+// Select Color: Eraser Mode
+
+DOMEraser.addEventListener("click", function() {
+  color = "";
+});
+
+// Select Color: Rainbow Modeù
+
+DOMRainbow.addEventListener("click", function() {
+  color = "change-mode-rainbow";
 });
 
 
@@ -88,6 +100,8 @@ document.addEventListener("mouseup", function() {
 
 
 
+// Main
+
 // Main: Select & Apply Color
 
 const gridCellNodeList = document.querySelectorAll(".cell");
@@ -95,13 +109,7 @@ const gridCellNodeList = document.querySelectorAll(".cell");
 gridCellNodeList.forEach(cell => cell.addEventListener(
   "mouseover", main
 ));
-
-// Main: Eraser Mode
-
-DOMEraser.addEventListener("click", function() {
-  color = "";
-});
-
+ 
 // Main: Clear All
 
 DOMClearAll.addEventListener("dblclick", function() {
@@ -127,6 +135,15 @@ function main(event) {
 
       isolateOpacityArray[isolateOpacityArray.length - 1] = String(currentOpacity - 0.1);
       event.target.style.backgroundColor = isolateOpacityArray.join("") + ")";
+
+    } else if (color === "change-mode-rainbow") {
+
+      const r = Math.trunc(256 * Math.random());
+      const g = Math.trunc(256 * Math.random());
+      const b = Math.trunc(256 * Math.random());
+
+      const randomColor = `rgb(${r}, ${g}, ${b})`;
+      event.target.style.backgroundColor = randomColor;
 
     } else {
       event.target.style.backgroundColor = color;
