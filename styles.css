@@ -250,6 +250,8 @@ body {
 /* HEADER */
 
 header {
+  margin-bottom: 32px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -334,4 +336,14 @@ header a:hover {
 
   border: none;
   background-color: white;
+}
+
+
+
+/* -------------------------------------------------- */
+
+/* gridCell SPECIAL CLASSES */
+
+.has-border {
+  border: 1px solid black;
 }

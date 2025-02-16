@@ -18,6 +18,7 @@ const DOMRainbow = document.querySelector(".rainbow");
 
 const DOMBackgroundColorChange = document.querySelector(".change-background");
 
+const DOMToggleGridLines = document.querySelector(".toggle-grid");
 
 
 // Global Constants
@@ -43,11 +44,11 @@ let color;
 function styleGridCell(gridSize) {
   gridCell.style.width = `${containerSize / gridSize}px`;
   gridCell.style.height = `${containerSize / gridSize}px`;
-  gridCell.style.border = "1px solid black";
   gridCell.style.flex = "0 0 auto";
   gridCell.style.backgroundColor = "rgba(0, 0, 0, 0)";
 
   gridCell.classList.add("cell");
+  gridCell.classList.add("has-border");
 }
 
 // Grid: Get Grid Size
@@ -132,6 +133,14 @@ DOMBackgroundColorChange.addEventListener("click", function() {
 });
 
 
+
+// Toggle Grid Lines
+
+DOMToggleGridLines.addEventListener("click", function() {
+gridCellNodeList.forEach(cell => {
+    cell.classList.toggle("has-border");
+  })
+});
 
 // Main
 
