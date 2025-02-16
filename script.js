@@ -16,6 +16,8 @@ const DOMOpacity = document.querySelector(".opacity");
 
 const DOMRainbow = document.querySelector(".rainbow");
 
+const DOMBackgroundColorChange = document.querySelector(".change-background");
+
 
 
 // Global Constants
@@ -34,7 +36,9 @@ let color;
 
 
 
-// gridCell Styling
+// Grid
+
+// Grid: gridCell Styling
 
 function styleGridCell(gridSize) {
   gridCell.style.width = `${containerSize / gridSize}px`;
@@ -46,21 +50,14 @@ function styleGridCell(gridSize) {
   gridCell.classList.add("cell");
 }
 
-
-
-// Get Grid Size
+// Grid: Get Grid Size
 
 function getGridSize() {
   const gridSize = document.querySelector(".grid-size-input").value;
   return gridSize
 }
 
-
-
-
-
-
-// Add gridCell to DOM
+// Grid: Add gridCell cells to DOM
 
 function generateGrid(gridSize) {
   for (let i = 0; i < (gridSize ?? 16) ** 2; i++) {
@@ -123,6 +120,15 @@ DOMContainer.addEventListener("mousedown", function(event) {
 
 document.addEventListener("mouseup", function() {
   isMousePressed = false;
+});
+
+
+
+// Background
+
+DOMBackgroundColorChange.addEventListener("click", function() {
+  DOMContainer.style.backgroundColor = color;
+  DOMBackgroundColorChange.style.backgroundColor = color;
 });
 
 
