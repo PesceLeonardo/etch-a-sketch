@@ -32,6 +32,8 @@ body {
 /* SELECTORS */
 
 .options {
+  margin-top: 32px;
+
   display: flex;
 }
 
@@ -273,3 +275,63 @@ header a:hover {
 /* -------------------------------------------------- */
 
 
+
+/* EXTRA OPTIONS */
+
+.central {
+  font-family: pixelBold, monospace;
+  font-size: 32px;
+  text-align: center;
+  color: white;
+
+  display: flex;
+  gap: 100px;
+}
+
+.change-background, .grid-size, .toggle-grid, .palette {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.extra {
+  width: 210px;
+  height: 750px;
+
+  display: flex;
+}
+
+.left .button {
+  width: 170px;
+}
+
+.left {
+  flex-direction: column;
+}
+
+.grid-size, .toggle-grid {
+  height: 80px;
+}
+
+.change-background {
+  height: 170px;
+
+}
+
+.grid-size {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-size input {
+  width: 170px;
+  height: 80px;
+
+  font-family: pixelBold, monospace;
+  font-size: 48px;
+  text-align: center;
+
+  border: none;
+  background-color: white;
+}
