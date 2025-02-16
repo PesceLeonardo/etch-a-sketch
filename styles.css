@@ -19,6 +19,8 @@
   margin: 0;
 
   box-sizing: border-box ;
+
+  user-select: none;
 }
 
 body {
@@ -28,6 +30,8 @@ body {
   flex-direction: column;
   align-items: center;
 }
+
+
 
 /* SELECTORS */
 
@@ -73,9 +77,11 @@ body {
   text-orientation: upright;
 }
 
-.text {
-  user-select: none;
+::-webkit-full-page-media, _:future, :root .side .text {
+  letter-spacing: 10px;
+}
 
+.text {
   font-family: pixelBold, monospace;
   font-size: 32px;
 
