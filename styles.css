@@ -76,14 +76,18 @@ body {
 .text {
   user-select: none;
 
-  font-family: pixel, monospace;
+  font-family: pixelBold, monospace;
   font-size: 32px;
-
-  background-color: white;
 
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.white {
+  font-family: pixel, monospace;
+
+  background-color: white;
 }
 
 /* COLOR SELECTORS */
@@ -290,12 +294,6 @@ header a:hover {
   gap: 100px;
 }
 
-.change-background, .grid-size, .toggle-grid, .palette {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .extra {
   width: 210px;
   height: 750px;
@@ -320,12 +318,6 @@ header a:hover {
 
 }
 
-.grid-size {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .grid-size-input {
   width: 170px;
   height: 80px;
@@ -338,9 +330,9 @@ header a:hover {
   background-color: white;
 }
 
-
-
 /* -------------------------------------------------- */
+
+
 
 /* gridCell SPECIAL CLASSES */
 

@@ -74,8 +74,15 @@ function generateGrid(gridSize) {
 // Select Color: Default
 
 function selectColor(event) {
+  if (
+    event.target.classList.contains("palette") &&
+    (event.target.style.backgroundColor === "" || color === "")
+  ) {
+    event.target.style.backgroundColor = color;
+  } else {
   const selectedColor = getComputedStyle(event.target).backgroundColor;
   color = selectedColor;
+  }
 }
 
 DOMColorNodeList.forEach(selector => selector.addEventListener(
@@ -104,7 +111,15 @@ DOMEraser.addEventListener("click", function() {
   color = "";
 });
 
-// Select Color: Rainbow Modeù
+// Select Color: Clear All
+
+DOMClearAll.addEventListener("dblclick", function() {
+  gridCellNodeList.forEach(cell => {
+    cell.style.backgroundColor = ""
+  })
+});
+
+// Select Color: Rainbow Mode
 
 DOMRainbow.addEventListener("click", function() {
   color = "change-mode-rainbow";
@@ -142,6 +157,8 @@ gridCellNodeList.forEach(cell => {
   })
 });
 
+
+
 // Main
 
 // Main: Generate Grid, Select, and Apply Color
@@ -159,18 +176,11 @@ DOMGridSizeButton.addEventListener("click", function() {
   ));
 });
 
-// Main: Clear All
-
-DOMClearAll.addEventListener("dblclick", function() {
-  gridCellNodeList.forEach(cell => {
-    cell.style.backgroundColor = ""
-  })
-});
-
 // Main: Main Function
 
 function main(event) {
   if (isMousePressed) {
+
     if (color === "change-mode-opacity") {
 
       const backgroundColorString = event.target.style.backgroundColor;
