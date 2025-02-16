@@ -2,7 +2,9 @@
 
 const DOMContainer = document.querySelector(".container");
 const gridCell = document.createElement("div");
-const DOMColorNodeList = document.querySelectorAll(".color")
+const DOMColorNodeList = document.querySelectorAll(".color");
+
+const DOMGridSizeButton = document.querySelector(".grid-size");
 
 const DOMEraser = document.querySelector(".eraser");
 const DOMClearAll = document.querySelector(".clear");
@@ -16,30 +18,55 @@ const DOMRainbow = document.querySelector(".rainbow");
 
 
 
+// Global Constants
+
+const containerSize = 640;
+
+
+
 // Global Variables
 
+let gridSize;
+let gridCellNodeList;
 let isMousePressed;
 let color;
 
 
 
+
 // gridCell Styling
 
-gridCell.style.width = "40px";
-gridCell.style.height = "40px";
-gridCell.style.border = "1px solid black";
-gridCell.style.flex = "0 0 auto";
-gridCell.style.backgroundColor = "rgba(0, 0, 0, 0)";
+function styleGridCell(gridSize) {
+  gridCell.style.width = `${containerSize / gridSize}px`;
+  gridCell.style.height = `${containerSize / gridSize}px`;
+  gridCell.style.border = "1px solid black";
+  gridCell.style.flex = "0 0 auto";
+  gridCell.style.backgroundColor = "rgba(0, 0, 0, 0)";
 
-gridCell.classList.add("cell");
+  gridCell.classList.add("cell");
+}
+
+
+
+// Get Grid Size
+
+function getGridSize() {
+  const gridSize = document.querySelector(".grid-size-input").value;
+  return gridSize
+}
+
+
+
 
 
 
 // Add gridCell to DOM
 
-for (let i = 0; i < 16 ** 2; i++) {
-  const clone = gridCell.cloneNode(true);
-  DOMContainer.appendChild(clone);
+function generateGrid(gridSize) {
+  for (let i = 0; i < (gridSize ?? 16) ** 2; i++) {
+    const clone = gridCell.cloneNode(true);
+    DOMContainer.appendChild(clone);
+  }
 }
 
 
@@ -102,14 +129,21 @@ document.addEventListener("mouseup", function() {
 
 // Main
 
-// Main: Select & Apply Color
+// Main: Generate Grid, Select, and Apply Color
 
-const gridCellNodeList = document.querySelectorAll(".cell");
+DOMGridSizeButton.addEventListener("click", function() {
+  gridSize = getGridSize();
+  DOMContainer.textContent = "";
 
-gridCellNodeList.forEach(cell => cell.addEventListener(
-  "mouseover", main
-));
- 
+  styleGridCell(gridSize);
+  generateGrid(gridSize);
+
+  gridCellNodeList = document.querySelectorAll(".cell");
+  gridCellNodeList.forEach(cell => cell.addEventListener(
+    "mouseover", main
+  ));
+});
+
 // Main: Clear All
 
 DOMClearAll.addEventListener("dblclick", function() {
