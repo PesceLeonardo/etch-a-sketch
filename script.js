@@ -32,6 +32,7 @@ const containerSize = 640;
 let gridSize;
 let gridCellNodeList;
 let isMousePressed;
+let isShiftPressed;
 let color;
 
 
@@ -127,7 +128,9 @@ DOMRainbow.addEventListener("click", function() {
 
 
 
-// Check For Mouse
+// Check For Key
+
+// Check For Key: Mouse
 
 DOMContainer.addEventListener("mousedown", function(event) {
   isMousePressed = true;
@@ -136,6 +139,16 @@ DOMContainer.addEventListener("mousedown", function(event) {
 
 document.addEventListener("mouseup", function() {
   isMousePressed = false;
+});
+
+// Check For Key: Shift
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Shift") isShiftPressed = true;
+});
+
+document.addEventListener("keyup", function(event) {
+  if (event.key === "Shift") isShiftPressed = false;
 });
 
 
@@ -152,7 +165,7 @@ DOMBackgroundColorChange.addEventListener("click", function() {
 // Toggle Grid Lines
 
 DOMToggleGridLines.addEventListener("click", function() {
-gridCellNodeList.forEach(cell => {
+  gridCellNodeList.forEach(cell => {
     cell.classList.toggle("has-border");
   })
 });
@@ -160,6 +173,72 @@ gridCellNodeList.forEach(cell => {
 
 
 // Main
+
+// Main: Get RGBA Representation of Background Color
+
+function getRGBAlphaArray(eventTarget) {
+  const backgroundColorString = eventTarget.style.backgroundColor;
+
+  const RGBArray = backgroundColorString.split(",").map(function (str) {
+    let result = "";
+    for (const char of str) if (char >= "0" && char <= "9" || char === ".") result += char;
+    return result;
+  });
+
+  const RGBAlphaArray = RGBArray.length === 3 ? [...RGBArray, "1.0"] : RGBArray;
+  const numberMapRGBAlphaArray = RGBAlphaArray.map(x => Number(x));
+
+  return numberMapRGBAlphaArray;
+}
+
+// Main: opacityMode Function
+
+function opacityMode(eventTarget) {
+  const RGBAlphaArray = getRGBAlphaArray(eventTarget);
+
+  const newOpacity = isShiftPressed ? RGBAlphaArray[3] + 0.1 : RGBAlphaArray[3] - 0.1;
+
+  eventTarget.style.backgroundColor =
+    `rgba(${RGBAlphaArray[0]}, ${RGBAlphaArray[1]}, ${RGBAlphaArray[2]}, ${newOpacity})`;
+}
+
+// Main: rainbowMode
+
+function rainbowMode(eventTarget) {
+  if (isShiftPressed) {
+    const RGBAlphaArray = getRGBAlphaArray(eventTarget);
+
+    const invertedRGBAValues = RGBAlphaArray.map(x => 255 - x);
+
+    eventTarget.style.backgroundColor =
+      `rgba(${invertedRGBAValues[0]}, ${invertedRGBAValues[1]}, ${invertedRGBAValues[2]}, ${RGBAlphaArray[3]})`;
+
+  } else {
+    const r = Math.trunc(256 * Math.random());
+    const g = Math.trunc(256 * Math.random());
+    const b = Math.trunc(256 * Math.random());
+
+    const randomColor = `rgb(${r}, ${g}, ${b})`;
+    eventTarget.style.backgroundColor = randomColor;
+  }
+}
+
+// Main: Main Function
+
+function main(event) {
+  if (isMousePressed) {
+
+    if (color === "change-mode-opacity") {
+      opacityMode(event.target);      
+
+    } else if (color === "change-mode-rainbow") {
+      rainbowMode(event.target);      
+
+    } else {
+      event.target.style.backgroundColor = color;
+    }
+  }
+}
 
 // Main: Generate Grid, Select, and Apply Color
 
@@ -176,36 +255,15 @@ DOMGridSizeButton.addEventListener("click", function() {
   ));
 });
 
-// Main: Main Function
+// Main: rainbowMode All Grid
 
-function main(event) {
-  if (isMousePressed) {
+DOMRainbow.addEventListener("dblclick", function() {
+  gridCellNodeList.forEach(rainbowMode);
+});
 
-    if (color === "change-mode-opacity") {
+// Main: opacityMode All Grid
 
-      const backgroundColorString = event.target.style.backgroundColor;
+DOMOpacity.addEventListener("dblclick", function() {
+  gridCellNodeList.forEach(opacityMode);
+});
 
-      const currentRGBA = backgroundColorString[3] !== "a" ?
-      `${backgroundColorString.slice(0, 3)}a${backgroundColorString.slice(3, -1)}, 1.0)`
-      : backgroundColorString;
-
-      const isolateOpacityArray = currentRGBA.replace(")", "").split(" ");
-      const currentOpacity = Number(isolateOpacityArray.at(-1));
-
-      isolateOpacityArray[isolateOpacityArray.length - 1] = String(currentOpacity - 0.1);
-      event.target.style.backgroundColor = isolateOpacityArray.join("") + ")";
-
-    } else if (color === "change-mode-rainbow") {
-
-      const r = Math.trunc(256 * Math.random());
-      const g = Math.trunc(256 * Math.random());
-      const b = Math.trunc(256 * Math.random());
-
-      const randomColor = `rgb(${r}, ${g}, ${b})`;
-      event.target.style.backgroundColor = randomColor;
-
-    } else {
-      event.target.style.backgroundColor = color;
-    }
-  }
-}
