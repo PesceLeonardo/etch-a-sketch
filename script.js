@@ -6,6 +6,9 @@ const DOMColorNodeList = document.querySelectorAll(".color");
 
 const DOMGridSizeButton = document.querySelector(".grid-size");
 
+const DOMSelectors = document.querySelectorAll(".selector");
+const DOMColors = document.querySelector(".colors");
+
 const DOMEraser = document.querySelector(".eraser");
 const DOMClearAll = document.querySelector(".clear");
 
@@ -31,10 +34,39 @@ const containerSize = 640;
 
 let gridSize;
 let gridCellNodeList;
+
 let isMousePressed;
 let isShiftPressed;
+
+let isPrecisionMode;
+let isPrecisionKeyPressed;
+
 let color;
 
+
+
+// Toggle Precision Mode
+
+document.addEventListener("keypress", function(event) {
+  if (event.key === "P") {
+    isPrecisionMode = !isPrecisionMode;
+
+    if (isPrecisionMode) {
+      DOMSelectors.forEach(x => x.style.border = "10px groove red");
+
+    } else {
+      DOMSelectors.forEach(x => x.style.border = "10px groove black");
+    }
+  }
+});
+
+document.addEventListener("keydown", function(event) {
+  if (isPrecisionMode && event.key === "p") isPrecisionKeyPressed = true;
+});
+
+document.addEventListener("keyup", function(event) {
+  if (isPrecisionMode && event.key === "p") isPrecisionKeyPressed = false;
+});
 
 
 
@@ -115,9 +147,11 @@ DOMEraser.addEventListener("click", function() {
 // Select Color: Clear All
 
 DOMClearAll.addEventListener("dblclick", function() {
-  gridCellNodeList.forEach(cell => {
-    cell.style.backgroundColor = ""
-  })
+  if (!isPrecisionMode || isPrecisionKeyPressed) {
+    gridCellNodeList.forEach(cell => {
+      cell.style.backgroundColor = ""
+    })
+  }
 });
 
 // Select Color: Rainbow Mode
@@ -258,12 +292,16 @@ DOMGridSizeButton.addEventListener("click", function() {
 // Main: rainbowMode All Grid
 
 DOMRainbow.addEventListener("dblclick", function() {
-  gridCellNodeList.forEach(rainbowMode);
+  if (!isPrecisionMode || isPrecisionKeyPressed) {
+    gridCellNodeList.forEach(rainbowMode);
+  }
 });
 
 // Main: opacityMode All Grid
 
 DOMOpacity.addEventListener("dblclick", function() {
-  gridCellNodeList.forEach(opacityMode);
+  if (!isPrecisionMode || isPrecisionKeyPressed) {
+    gridCellNodeList.forEach(opacityMode);
+  }
 });
 
