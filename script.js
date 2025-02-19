@@ -230,7 +230,7 @@ DOMInfo.addEventListener("click", function() {
 
 
 
-// Save: Save into Save Slot
+// Save into Save Slot
 
 DOMSave.addEventListener("dblclick", function() {
   if (!isPrecisionMode || isPrecisionKeyPressed) {
