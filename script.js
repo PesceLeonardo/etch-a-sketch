@@ -26,6 +26,9 @@ const DOMToggleGridLines = document.querySelector(".toggle-grid");
 const DOMInfo = document.querySelector(".info");
 const DOMInfoWindow = document.querySelector(".modal");
 
+const DOMSave = document.querySelector(".save");
+const DOMLoad = document.querySelector(".load");
+
 
 
 // Global Constants
@@ -45,6 +48,8 @@ let isShiftPressed;
 let precisionKeysObject = {};
 let isPrecisionMode;
 let isPrecisionKeyPressed;
+
+let savedCanvas = {};
 
 let color;
 
@@ -105,7 +110,7 @@ function getGridSize() {
 // Grid: Add gridCell cells to DOM
 
 function generateGrid(gridSize) {
-  for (let i = 0; i < (gridSize ?? 16) ** 2; i++) {
+  for (let i = 0; i < gridSize ** 2; i++) {
     const clone = gridCell.cloneNode(true);
     DOMContainer.appendChild(clone);
   }
@@ -221,6 +226,26 @@ DOMToggleGridLines.addEventListener("click", function() {
 
 DOMInfo.addEventListener("click", function() {
   DOMInfoWindow.classList.toggle("hidden");
+});
+
+
+
+// Save: Save into Save Slot
+
+DOMSave.addEventListener("dblclick", function() {
+  if (!isPrecisionMode || isPrecisionKeyPressed) {
+    for (const [index, target] of gridCellNodeList.entries()) {
+      savedCanvas[index] = target.style.backgroundColor;
+    }
+  }
+});
+
+DOMLoad.addEventListener("dblclick", function() {
+  if (!isPrecisionMode || isPrecisionKeyPressed) {
+    for (const [index, target] of gridCellNodeList.entries()) {
+      target.style.backgroundColor = savedCanvas[index];
+    }
+  }
 });
 
 
