@@ -23,6 +23,10 @@ const DOMBackgroundColorChange = document.querySelector(".change-background");
 
 const DOMToggleGridLines = document.querySelector(".toggle-grid");
 
+const DOMInfo = document.querySelector(".info");
+const DOMInfoWindow = document.querySelector(".modal");
+
+
 
 // Global Constants
 
@@ -38,6 +42,7 @@ let gridCellNodeList;
 let isMousePressed;
 let isShiftPressed;
 
+let precisionKeysObject = {};
 let isPrecisionMode;
 let isPrecisionKeyPressed;
 
@@ -47,8 +52,10 @@ let color;
 
 // Toggle Precision Mode
 
-document.addEventListener("keypress", function(event) {
-  if (event.key === "P") {
+document.addEventListener("keydown", function(event) {
+  precisionKeysObject[event.key] = true;
+
+  if (precisionKeysObject["P"] && precisionKeysObject["W"] && precisionKeysObject["R"]) {
     isPrecisionMode = !isPrecisionMode;
 
     if (isPrecisionMode) {
@@ -58,6 +65,10 @@ document.addEventListener("keypress", function(event) {
       DOMSelectors.forEach(x => x.style.border = "10px groove black");
     }
   }
+});
+
+document.addEventListener("keyup", function(event) {
+  delete precisionKeysObject[event.key];
 });
 
 document.addEventListener("keydown", function(event) {
@@ -202,6 +213,14 @@ DOMToggleGridLines.addEventListener("click", function() {
   gridCellNodeList.forEach(cell => {
     cell.classList.toggle("has-border");
   })
+});
+
+
+
+// Info
+
+DOMInfo.addEventListener("click", function() {
+  DOMInfoWindow.classList.toggle("hidden");
 });
 
 
